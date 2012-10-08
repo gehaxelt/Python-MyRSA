@@ -1,0 +1,8 @@
+This is a - maybe dirty - implementation of the rsa algorithm.
+http://de.wikipedia.org/wiki/RSA-Kryptosystem
+
+I think it can be optimized in different places, like the generation of the private key.
+
+This should not be used in produktiv systems. This code was written for understanding and lerning purposes only.
+
+
