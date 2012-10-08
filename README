@@ -5,4 +5,33 @@ I think it can be optimized in different places, like the generation of the priv
 
 This should not be used in produktiv systems. This code was written for understanding and lerning purposes only.
 
+======================================
+Sample output:
+
+Generating prime p
+>>Prime p:37
+Generating prime q
+>>Prime q:41
+Calculating factor n
+>>Factor n:1517
+Calculating Phi(N)
+>>Phi(N):1440
+Generating pubkey e
+>>Pubkey e:173
+Generating pubkey d
+>>Privkey d:1157
+Generating text
+>>Text:75
+Encrypting
+>>Text (encrypted):1259
+Decrypting
+>>Text (decrypted):75
+
+=======================================
+Information:
+http://www.inf.fh-flensburg.de/lang/krypto/algo/euklid.htm
+http://www.r-krell.de/if-java-k.htm
+http://www.tecchannel.de/sicherheit/management/401402/kryptographie_grundlagen/index14.html
+http://de.wikipedia.org/wiki/RSA-Kryptosystem
+http://www.saar.de/~awa/infsek1/Berlekamp.htm
 
