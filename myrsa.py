@@ -1,22 +1,22 @@
 #Encoding: UTF-8
+import math
 import random
 # globale variable mit primzahlen
 previous_primes = [2]
 
-#Funktion zur Berechnung des größten gemeinsamen Teilers
-def ggT(x,y):
-	temp = 1
+def gcd(a, b):
+    '''Return the greatest common divisor (gcd) of two numbers.
 
-	if(y > x):
-		temp = x
-		x = y
-		y = temp
+    Use the recursive variant of the extended Euclidean algorithm
+    to compute the GCD of a and b. Also find two numbers x and y
+    that satisfy ax + by = gcd(a,b).
 
-	while( 0 != temp):
-		temp = x % y
-		x = y
-		y = temp
-	return x
+    '''
+    if b == 0:
+        return (a, 1, 0)
+    (d_, x_, y_) = gcd(b, a % b)
+    (d, x, y) = (d_, y_, x_ - math.floor(a / b)*y_)
+    return (d, x, y)
 
 #Funktion zur Überprüfung ob number eine Primzahl ist
 def isPrime(number):
@@ -37,20 +37,20 @@ def gen_prime(max):
 
 #Funktion zur Berechnung des öffentlichen Schlüssels aus den Primzahlen p & q
 def gen_pubkey(p,q):
-	for e in xrange(random.randint(0,200),(p-1)*(q-1)-1): 
-		if( ggT(e, (p-1)*(q-1)) == 1):
+	for e in xrange(random.randint(0,200),(p-1)*(q-1)-1):
+		if( gcd(e, (p-1)*(q-1))[0] == 1):
 			return e
 
 #Funktion zur Berechnung des privaten Schlüssels aus den Primzahlen p & q, sowie dem öffentlichen Schlüssel e
 def gen_privkey(p,q,e):
 	d_array = [] # Array mit allen möglichen privaten Schlüsseln
-	
+
 	#Brute Force-artige Berechnung von möglichen privaten Schlüsseln
 	for k in xrange(-(p-1)*(q-1),(p-1)*(q-1)): #Bereich: -Phi(N)^2 bis Phi(N)^2
 		for d in xrange (-e*e, e*e): #Bereich: -e^2 bis e^2
 			if(1 == (e*d + k*(p-1)*(q-1)) ): # Brute-Force des erweiterten euklidschen Algorithmus
 				d_array.append(d)
-	
+
 	#Array der größe sortieren und erste positive Ergebnis nehmen.
 	d_array.sort()
 	for d in d_array:
