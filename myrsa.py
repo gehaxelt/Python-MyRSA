@@ -1,5 +1,4 @@
 #Encoding: UTF-8
-import math
 import random
 # globale variable mit primzahlen
 previous_primes = [2]
@@ -15,7 +14,7 @@ def gcd(a, b):
     if b == 0:
         return (a, 1, 0)
     (d_, x_, y_) = gcd(b, a % b)
-    (d, x, y) = (d_, y_, x_ - math.floor(a / b)*y_)
+    (d, x, y) = (d_, y_, x_ - (a // b) * y_)
     return (d, x, y)
 
 #Funktion zur Überprüfung ob number eine Primzahl ist
