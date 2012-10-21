@@ -63,6 +63,8 @@ print "Generating prime q"
 prime_q = gen_prime(random.randint(10,50))
 print ">>Prime q:" + str(prime_q)
 
+assert prime_p != prime_q
+
 print "Calculating factor n"
 factor_n = prime_p*prime_q
 print ">>Factor n:" + str(factor_n)
@@ -71,9 +73,11 @@ print "Calculating Phi(N)"
 phi_n = (prime_p-1)*(prime_q-1)
 print ">>Phi(N):" + str(phi_n)
 
-# e doesn't have to choosen at random. any prime number < phi_n will work.
+# e doesn't have to be choosen at random. any prime number < phi_n will work.
 e = 17
 print ">>Public exponent e:" + str(e)
+
+assert e < phi_n
 
 print "Generating pubkey d"
 privkey_d = gen_privkey(prime_p, prime_q, e)
