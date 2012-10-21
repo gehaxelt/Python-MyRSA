@@ -40,21 +40,18 @@ def gen_pubkey(p,q):
 		if( gcd(e, (p-1)*(q-1))[0] == 1):
 			return e
 
-#Funktion zur Berechnung des privaten Schlüssels aus den Primzahlen p & q, sowie dem öffentlichen Schlüssel e
-def gen_privkey(p,q,e):
-	d_array = [] # Array mit allen möglichen privaten Schlüsseln
+def gen_privkey(p, q, e):
+    ''' Return the private key exponent d.
 
-	#Brute Force-artige Berechnung von möglichen privaten Schlüsseln
-	for k in xrange(-(p-1)*(q-1),(p-1)*(q-1)): #Bereich: -Phi(N)^2 bis Phi(N)^2
-		for d in xrange (-e*e, e*e): #Bereich: -e^2 bis e^2
-			if(1 == (e*d + k*(p-1)*(q-1)) ): # Brute-Force des erweiterten euklidschen Algorithmus
-				d_array.append(d)
+    Compute the private exponent d using the extended Euclidean algorithm.
+    d is the multiplicative inverse of e % ((p - 1) * (q - 1)),
+    so it satisfies d * e == 1 % ((p - 1) * (q - 1)).
 
-	#Array der größe sortieren und erste positive Ergebnis nehmen.
-	d_array.sort()
-	for d in d_array:
-		if d > 0:
-			return d
+    '''
+    phi_n = (p - 1) * (q - 1)
+    (x, d, y) = gcd(e, phi_n)
+    if d < 0: d += phi_n
+    return d
 
 #Funktion zur Verschlüsselung einer Zahl mit dem öffentlichen Schlüssel
 def pubkey_encrypt(text, pubkey, factor):
