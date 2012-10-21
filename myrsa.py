@@ -34,12 +34,6 @@ def gen_prime(max):
 			last_prime = i
 	return last_prime
 
-#Funktion zur Berechnung des öffentlichen Schlüssels aus den Primzahlen p & q
-def gen_pubkey(p,q):
-	for e in xrange(random.randint(0,200),(p-1)*(q-1)-1):
-		if( gcd(e, (p-1)*(q-1))[0] == 1):
-			return e
-
 def gen_privkey(p, q, e):
     ''' Return the private key exponent d.
 
@@ -77,12 +71,12 @@ print "Calculating Phi(N)"
 phi_n = (prime_p-1)*(prime_q-1)
 print ">>Phi(N):" + str(phi_n)
 
-print "Generating pubkey e"
-pubkey_e = gen_pubkey(prime_p, prime_q)
-print ">>Pubkey e:" + str(pubkey_e)
+# e doesn't have to choosen at random. any prime number < phi_n will work.
+e = 17
+print ">>Public exponent e:" + str(e)
 
 print "Generating pubkey d"
-privkey_d = gen_privkey(prime_p, prime_q, pubkey_e)
+privkey_d = gen_privkey(prime_p, prime_q, e)
 print ">>Privkey d:" + str(privkey_d)
 
 print "Generating text"
@@ -90,7 +84,7 @@ text_clear = random.randint(0,100)
 print ">>Text:" + str(text_clear)
 
 print "Encrypting"
-text_encrypted = pubkey_encrypt(text_clear, pubkey_e, factor_n)
+text_encrypted = pubkey_encrypt(text_clear, e, factor_n)
 print ">>Text (encrypted):" + str(text_encrypted)
 
 print "Decrypting"
