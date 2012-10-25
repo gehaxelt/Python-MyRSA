@@ -1,7 +1,5 @@
 #Encoding: UTF-8
 import random
-# globale variable mit primzahlen
-previous_primes = [2]
 
 def gcd(a, b):
     '''Return the greatest common divisor (gcd) of two numbers.
@@ -18,21 +16,18 @@ def gcd(a, b):
     return (d, x, y)
 
 #Funktion zur Überprüfung ob number eine Primzahl ist
+#Fermats primality test used with base 2. This will return reliable prime numbers up to prime<=340.
 def isPrime(number):
-	for prev_prime in previous_primes:
-                if( 0 == (number % prev_prime)):
-			return False
-	return True
+	if ( (2 ** (number -1) ) % number ) == 1:
+		return (True )# and isPrime(number,base-1))
+	else:
+		return False
 
 #Funktion zur Berechnung von Primzahlen
 def gen_prime(max):
-	previous_primes = [2]
-	last_prime = 0
-	for i in xrange(2,max):
+	for i in xrange(max,2,-1):
 		if(isPrime(i)):
-			previous_primes.append(i)
-			last_prime = i
-	return last_prime
+			return i
 
 def gen_privkey(p, q, e):
     ''' Return the private key exponent d.
